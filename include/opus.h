@@ -1169,45 +1169,21 @@ OPUS_EXPORT OPUS_WARN_UNUSED_RESULT opus_int32 opus_multistream_packet_unpad(uns
 // DSharpPlus additions for exporting vararg calls
 // -----------------------------------------------
 
-OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_bitrate(OpusEncoder* encoder, int bitrate)
-{
-  return opus_encoder_ctl(encoder, OPUS_SET_BITRATE(bitrate));
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_bitrate(OpusEncoder* encoder, int bitrate);
 
-OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_max_bandwidth(OpusEncoder* encoder, int bandwidth)
-{
-  return opus_encoder_ctl(encoder, OPUS_SET_MAX_BANDWIDTH(bandwidth));
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_max_bandwidth(OpusEncoder* encoder, int bandwidth);
 
-OPUS_EXPORT int dsharpplus_opus_encoder_set_in_band_fec(OpusEncoder* encoder, int fec)
-{
-  return opus_encoder_ctl(encoder, OPUS_SET_INBAND_FEC(fec));
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_set_in_band_fec(OpusEncoder* encoder, int fec);
 
-OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_packet_loss(OpusEncoder* encoder, int packet_loss_percent)
-{
-  return opus_encoder_ctl(encoder, OPUS_SET_PACKET_LOSS_PERC(packet_loss_percent));
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_packet_loss(OpusEncoder* encoder, int packet_loss_percent);
 
-OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_signal(OpusEncoder* encoder, int signal)
-{
-  return opus_encoder_ctl(encoder, OPUS_SET_SIGNAL(signal));
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_signal(OpusEncoder* encoder, int signal);
 
-OPUS_EXPORT int dsharpplus_opus_encoder_ctl_reset_state(OpusEncoder* encoder)
-{
-  return opus_encoder_ctl(encoder, OPUS_RESET_STATE);
-}
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_reset_state(OpusEncoder* encoder);
 
-OPUS_EXPORT int dsharpplus_opus_decoder_ctl_reset_state(OpusDecoder* decoder)
-{
-  return opus_decoder_ctl(decoder, OPUS_RESET_STATE);
-}
+OPUS_EXPORT int dsharpplus_opus_decoder_ctl_reset_state(OpusDecoder* decoder);
 
-OPUS_EXPORT int dsharpplus_opus_decoder_get_last_packet_duration(OpusDecoder* decoder, int* target)
-{
-  return opus_decoder_ctl(decoder, OPUS_GET_LAST_PACKET_DURATION(target));
-}
+OPUS_EXPORT int dsharpplus_opus_decoder_get_last_packet_duration(OpusDecoder* decoder, int* target);
 
 #ifdef __cplusplus
 }

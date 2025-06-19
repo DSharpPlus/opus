@@ -390,3 +390,47 @@ int opus_packet_parse(const unsigned char *data, opus_int32 len,
                                  frames, size, payload_offset, NULL, NULL, NULL);
 }
 
+// ----------------------------------------
+// DSharpPlus exports to circumvent varargs
+// ----------------------------------------
+
+int dsharpplus_opus_encoder_ctl_set_bitrate(OpusEncoder* encoder, int bitrate)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_BITRATE(bitrate));
+}
+
+int dsharpplus_opus_encoder_ctl_set_max_bandwidth(OpusEncoder* encoder, int bandwidth)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_MAX_BANDWIDTH(bandwidth));
+}
+
+int dsharpplus_opus_encoder_set_in_band_fec(OpusEncoder* encoder, int fec)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_INBAND_FEC(fec));
+}
+
+int dsharpplus_opus_encoder_ctl_set_packet_loss(OpusEncoder* encoder, int packet_loss_percent)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_PACKET_LOSS_PERC(packet_loss_percent));
+}
+
+int dsharpplus_opus_encoder_ctl_set_signal(OpusEncoder* encoder, int signal)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_SIGNAL(signal));
+}
+
+int dsharpplus_opus_encoder_ctl_reset_state(OpusEncoder* encoder)
+{
+  return opus_encoder_ctl(encoder, OPUS_RESET_STATE);
+}
+
+int dsharpplus_opus_decoder_ctl_reset_state(OpusDecoder* decoder)
+{
+  return opus_decoder_ctl(decoder, OPUS_RESET_STATE);
+}
+
+int dsharpplus_opus_decoder_get_last_packet_duration(OpusDecoder* decoder, int* target)
+{
+  return opus_decoder_ctl(decoder, OPUS_GET_LAST_PACKET_DURATION(target));
+}
+
