@@ -419,6 +419,16 @@ int dsharpplus_opus_encoder_ctl_set_signal(OpusEncoder* encoder, int signal)
   return opus_encoder_ctl(encoder, OPUS_SET_SIGNAL(signal));
 }
 
+int dsharpplus_opus_encoder_ctl_set_vbr_constraint(OpusEncoder* encoder, int value)
+{
+   return opus_encoder_ctl(encoder, OPUS_SET_VBR_CONSTRAINT(value));
+}
+
+int dsharpplus_opus_encoder_ctl_set_complexity(OpusEncoder* encoder, int complexity)
+{
+   return opus_encoder_ctl(encoder, OPUS_SET_COMPLEXITY(complexity));
+}
+
 int dsharpplus_opus_encoder_ctl_reset_state(OpusEncoder* encoder)
 {
   return opus_encoder_ctl(encoder, OPUS_RESET_STATE);

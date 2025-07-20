@@ -1179,6 +1179,10 @@ OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_packet_loss(OpusEncoder* encoder
 
 OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_signal(OpusEncoder* encoder, int signal);
 
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_vbr_constraint(OpusEncoder* encoder, int value);
+
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_complexity(OpusEncoder* encoder, int complexity);
+
 OPUS_EXPORT int dsharpplus_opus_encoder_ctl_reset_state(OpusEncoder* encoder);
 
 OPUS_EXPORT int dsharpplus_opus_decoder_ctl_reset_state(OpusDecoder* decoder);
