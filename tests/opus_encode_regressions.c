@@ -1021,6 +1021,63 @@ static int silk_gain_assert(void)
     return 0;
 }
 
+#ifdef ENABLE_QEXT
+int qext_repacketize_fail(void)
+{
+    OpusEncoder *enc;
+    int err;
+    unsigned char data[9000];
+    int data_len;
+    static const short pcm[960] =
+        { -20454, -7680,-12281,  -250, -1809,-22758,-22784,-20480,     3 };
+
+    enc = opus_encoder_create(16000, 1, OPUS_APPLICATION_VOIP, &err);
+    opus_encoder_ctl(enc, OPUS_SET_VBR(0));
+    opus_encoder_ctl(enc, OPUS_SET_QEXT(1));
+    opus_encoder_ctl(enc, OPUS_SET_BITRATE(OPUS_BITRATE_MAX));
+    data_len = opus_encode(enc, pcm, 960, data, 9000);
+    /* returns OPUS_INTERNAL_ERROR (-3) */
+    opus_test_assert(data_len > 0 && data_len <= 9000);
+    opus_encoder_destroy(enc);
+    return 0;
+}
+
+#ifdef ENABLE_DRED
+int qext_dred_combination(void)
+{
+    OpusMSEncoder *enc;
+    OpusEncoder *stream_enc;
+    int err;
+    unsigned char data[2560];
+    int data_len;
+    int streams;
+    int coupled_streams;
+    unsigned char mapping[5];
+    static const short pcm[320*5] =
+    {
+             0,     1, 15934,  -128,  -194,     0,     0,  1000,     0,
+        -22758, 15872,    16,     0,  1000,     0,-22758, 15872, -2304,
+         -2057, -2057, -2057, -2057, -2057, -2057, -2057
+    };
+
+    enc = opus_multistream_surround_encoder_create(16000, 5, 1, &streams,
+        &coupled_streams, mapping, OPUS_APPLICATION_VOIP, &err);
+    opus_multistream_encoder_ctl(enc, OPUS_SET_COMPLEXITY(3));
+    opus_multistream_encoder_ctl(enc, OPUS_SET_PACKET_LOSS_PERC(12));
+    opus_multistream_encoder_ctl(enc, OPUS_SET_QEXT(1));
+    opus_multistream_encoder_ctl(enc, OPUS_MULTISTREAM_GET_ENCODER_STATE(0, &stream_enc));
+    opus_encoder_ctl(stream_enc, OPUS_SET_DRED_DURATION(103));
+    opus_multistream_encoder_ctl(enc, OPUS_SET_BITRATE(755850));
+    data_len = opus_multistream_encode(enc, pcm, 320, data, 2560);
+    /* returns OPUS_BAD_ARG (-1) */
+    opus_test_assert(data_len > 0 && data_len <= 2560);
+    opus_multistream_encoder_destroy(enc);
+    return 0;
+}
+#endif
+#endif
+
+
 void regression_test(void)
 {
    fprintf(stderr, "Running simple tests for bugs that have been fixed previously\n");
@@ -1031,4 +1088,10 @@ void regression_test(void)
    ec_enc_shrink_assert();
    ec_enc_shrink_assert2();
    silk_gain_assert();
+#ifdef ENABLE_QEXT
+   qext_repacketize_fail();
+#ifdef ENABLE_DRED
+   qext_dred_combination();
+#endif
+#endif
 }
