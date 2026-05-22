@@ -411,6 +411,11 @@ int dsharpplus_opus_encoder_ctl_set_max_bandwidth(OpusEncoder* encoder, int band
   return opus_encoder_ctl(encoder, OPUS_SET_MAX_BANDWIDTH(bandwidth));
 }
 
+int dsharpplus_opus_encoder_ctl_set_bandwidth(OpusEncoder* encoder, int bandwidth)
+{
+  return opus_encoder_ctl(encoder, OPUS_SET_BANDWIDTH(bandwidth));
+}
+
 int dsharpplus_opus_encoder_ctl_set_in_band_fec(OpusEncoder* encoder, int fec)
 {
   return opus_encoder_ctl(encoder, OPUS_SET_INBAND_FEC(fec));

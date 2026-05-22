@@ -1176,6 +1176,8 @@ OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_bitrate(OpusEncoder* encoder, in
 
 OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_max_bandwidth(OpusEncoder* encoder, int bandwidth);
 
+OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_bandwidth(OpusEncoder* encoder, int bandwidth);
+
 OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_in_band_fec(OpusEncoder* encoder, int fec);
 
 OPUS_EXPORT int dsharpplus_opus_encoder_ctl_set_packet_loss(OpusEncoder* encoder, int packet_loss_percent);
